@@ -1,0 +1,69 @@
+{
+    "acteur": {
+        "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+        "uid": {
+            "@xsi:type": "IdActeur_type",
+            "#text": "PA569"
+        },
+        "etatCivil": {
+            "ident": {
+                "civ": "M.",
+                "prenom": "Philippe",
+                "nom": "Bonnecarrère",
+                "alpha": "Bonnecarrère_philippe",
+                "trigramme": "PBC"
+            },
+            "infoNaissance": {
+                "dateNais": "1955-07-12",
+                "villeNais": "Toulouse",
+                "depNais": "Haute-Garonne",
+                "paysNais": null
+            },
+            "dateDeces": null
+        },
+        "profession": {
+            "libelleCourant": "Avocat",
+            "socProcINSEE": {
+                "catSocPro": "Professions libérales et assimilés",
+                "famSocPro": "Cadres et professions intellectuelles supérieures"
+            }
+        },
+        "uri_hatvp": null,
+        "adresses": {
+            "adresse": [
+                {
+                    "@xsi:type": "AdresseSiteWeb_Type",
+                    "uid": "AD703763",
+                    "type": "23",
+                    "typeLibelle": "Url sénateur",
+                    "poids": null,
+                    "adresseDeRattachement": null,
+                    "valElec": "https://www.senat.fr/senateur/bonnecarrere_philippe14089y.html"
+                },
+                {
+                    "@xsi:type": "AdressePostale_Type",
+                    "uid": "AD841963",
+                    "type": "0",
+                    "typeLibelle": "Adresse officielle",
+                    "poids": "1",
+                    "adresseDeRattachement": null,
+                    "intitule": "Assemblée nationale,",
+                    "numeroRue": "126",
+                    "nomRue": "Rue de l'Université,",
+                    "complementAdresse": null,
+                    "codePostal": "75355",
+                    "ville": "Paris 07 SP"
+                },
+                {
+                    "@xsi:type": "AdresseMail_Type",
+                    "uid": "AD843829",
+                    "type": "15",
+                    "typeLibelle": "Mèl",
+                    "poids": null,
+                    "adresseDeRattachement": null,
+                    "valElec": "philippe.bonnecarrere@assemblee-nationale.fr"
+                }
+            ]
+        }
+    }
+}

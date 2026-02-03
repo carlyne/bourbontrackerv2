@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: bourbontracker
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: bourbon
+      POSTGRES_USER: bourbon
+      POSTGRES_PASSWORD: bourbon
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

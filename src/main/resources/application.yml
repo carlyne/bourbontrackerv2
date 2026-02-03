@@ -1,0 +1,12 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: bourbon
+    password: bourbon
+    jdbc:
+      url: jdbc:postgresql://localhost:5433/bourbon
+
+  hibernate-orm:
+    packages: org.bourbontracker.infra.bdd
+    schema-management:
+      strategy: update
