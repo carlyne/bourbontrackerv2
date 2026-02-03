@@ -1,0 +1,24 @@
+{
+  "organe": {
+    "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    "uid": "PO44311",
+    "codeType": "ASSEMBLEE",
+    "libelle": "Assemblée nationale de la 9ème législature",
+    "libelleEdition": "de l'Assemblée",
+    "libelleAbrege": "Assemblée",
+    "libelleAbrev": "AN",
+    "viMoDe": {
+      "dateDebut": "1988-06-05",
+      "dateAgrement": null,
+      "dateFin": "1993-04-01"
+    },
+    "organeParent": null,
+    "chambre": null,
+    "regime": "5ème République",
+    "legislature": "9",
+    "secretariat": {
+      "secretaire01": null,
+      "secretaire02": null
+    }
+  }
+}

@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 
-JSON_FILE="${1}"
-URL="${2:-http://localhost:8080/import/acteur}"
+DIR="acteur"
 
-if [[ ! -f "$JSON_FILE" ]]; then
-  echo "Erreur: fichier introuvable: $JSON_FILE" >&2
+if [[ ! -d "$DIR" ]]; then
+  echo "Erreur: dossier introuvable: $DIR" >&2
   exit 2
 fi
 
-curl -X POST \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  --data-binary @"$JSON_FILE" \
-  "$URL" | jq
+for JSON_FILE in "$DIR"/*.json; do
+  if [[ ! -f "$JSON_FILE" ]]; then
+    echo "Aucun fichier JSON trouvé dans le dossier $DIR" >&2
+    exit 2
+  fi
+
+  ./importacteur.sh "$JSON_FILE"
+done
