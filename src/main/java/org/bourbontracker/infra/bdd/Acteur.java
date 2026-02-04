@@ -66,6 +66,9 @@ public class Acteur extends PanacheEntityBase {
     @OneToMany(mappedBy = "acteur", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Adresse> adresses = new ArrayList<>();
 
+    @OneToMany(mappedBy = "acteur")
+    public List<Mandat> mandats = new ArrayList<>();
+
     public void addAdresse(Adresse a) {
         a.acteur = this;
         this.adresses.add(a);
