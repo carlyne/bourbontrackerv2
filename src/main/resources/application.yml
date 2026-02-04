@@ -7,6 +7,6 @@ quarkus:
       url: jdbc:postgresql://localhost:5433/bourbon
 
   hibernate-orm:
-    packages: org.bourbontracker.infra.bdd
+    packages: org.bourbontracker.infra.bdd.entity
     schema-management:
       strategy: update

@@ -4,9 +4,9 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 
 import org.bourbontracker.entrypoint.requete.ImportMandatRequete;
-import org.bourbontracker.infra.bdd.Acteur;
-import org.bourbontracker.infra.bdd.Mandat;
-import org.bourbontracker.infra.bdd.Organe;
+import org.bourbontracker.infra.bdd.entity.ActeurEntity;
+import org.bourbontracker.infra.bdd.entity.MandatEntity;
+import org.bourbontracker.infra.bdd.entity.OrganeEntity;
 import org.mapstruct.*;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
@@ -22,8 +22,8 @@ public abstract class ImportMandatMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = IGNORE)
     @Mapping(target = "uid", ignore = true)      // géré par le controller
-    @Mapping(target = "acteur", ignore = true)   // géré en @AfterMapping
-    @Mapping(target = "organe", ignore = true)   // géré en @AfterMapping
+    @Mapping(target = "acteurEntity", ignore = true)   // géré en @AfterMapping
+    @Mapping(target = "organeEntity", ignore = true)   // géré en @AfterMapping
 
     @Mapping(target = "xmlnsXsi", source = "mandat.xmlnsXsi")
     @Mapping(target = "legislature", source = "mandat.legislature")
@@ -56,23 +56,23 @@ public abstract class ImportMandatMapper {
     @Mapping(target = "mandaturePremiereElection", source = "mandat.mandature.premiereElection", qualifiedByName = "toIntegerOrNull")
     @Mapping(target = "mandaturePlaceHemicycle", source = "mandat.mandature.placeHemicycle")
     @Mapping(target = "mandatureMandatRemplaceRef", source = "mandat.mandature.mandatRemplaceRef")
-    public abstract void updateFromDto(ImportMandatRequete src, @MappingTarget Mandat target);
+    public abstract void updateFromDto(ImportMandatRequete src, @MappingTarget MandatEntity target);
 
     @AfterMapping
-    protected void attachRefs(ImportMandatRequete src, @MappingTarget Mandat target) {
+    protected void attachRefs(ImportMandatRequete src, @MappingTarget MandatEntity target) {
         if (src == null || src.mandat == null) return;
 
         // Acteur (FK: Acteur.uidText)
         String acteurRef = src.mandat.acteurRef;
         if (acteurRef != null && !acteurRef.isBlank()) {
             // getReference() retourne un proxy, sans SELECT immédiat :contentReference[oaicite:6]{index=6}
-            target.acteur = em.getReference(Acteur.class, acteurRef);
+            target.acteurEntity = em.getReference(ActeurEntity.class, acteurRef);
         }
 
         // Organe (FK: Organe.uid)
         String organeRef = (src.mandat.organes == null) ? null : src.mandat.organes.organeRef;
         if (organeRef != null && !organeRef.isBlank()) {
-            target.organe = em.getReference(Organe.class, organeRef);
+            target.organeEntity = em.getReference(OrganeEntity.class, organeRef);
         }
     }
 

@@ -15,9 +15,9 @@ import java.util.Map;
 
 import org.bourbontracker.entrypoint.mapper.ImportMandatMapper;
 import org.bourbontracker.entrypoint.requete.ImportMandatRequete;
-import org.bourbontracker.infra.bdd.Acteur;
-import org.bourbontracker.infra.bdd.Mandat;
-import org.bourbontracker.infra.bdd.Organe;
+import org.bourbontracker.infra.bdd.entity.ActeurEntity;
+import org.bourbontracker.infra.bdd.entity.MandatEntity;
+import org.bourbontracker.infra.bdd.entity.OrganeEntity;
 
 @Path("/import")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -39,11 +39,11 @@ public class ImportMandatController {
         }
 
         // 2) upsert
-        Mandat mandat = Mandat.findById(uid);
+        MandatEntity mandatEntity = MandatEntity.findById(uid);
         boolean created = false;
-        if (mandat == null) {
-            mandat = new Mandat();
-            mandat.uid = uid;   // géré ici
+        if (mandatEntity == null) {
+            mandatEntity = new MandatEntity();
+            mandatEntity.uid = uid;   // géré ici
             created = true;
         }
 
@@ -64,7 +64,7 @@ public class ImportMandatController {
 
         // Si fourni, on vérifie l’existence pour renvoyer une erreur lisible (plutôt qu’une FK en base)
         if (acteurRef != null && !acteurRef.isBlank()) {
-            if (Acteur.findById(acteurRef) == null) {
+            if (ActeurEntity.findById(acteurRef) == null) {
                 return Response.status(409).entity(Map.of(
                         "error", "acteurRef introuvable",
                         "acteurRef", acteurRef
@@ -72,7 +72,7 @@ public class ImportMandatController {
             }
         }
         if (organeRef != null && !organeRef.isBlank()) {
-            if (Organe.findById(organeRef) == null) {
+            if (OrganeEntity.findById(organeRef) == null) {
                 return Response.status(409).entity(Map.of(
                         "error", "organeRef introuvable",
                         "organeRef", organeRef
@@ -81,14 +81,14 @@ public class ImportMandatController {
         }
 
         // 4) mapping (MapStruct IGNORE nulls) + rattachement acteur/organe via getReference() (dans ton mapper)
-        mapper.updateFromDto(req, mandat);
+        mapper.updateFromDto(req, mandatEntity);
 
         // 5) persist/flush : on force la synchro DB ici pour capturer les erreurs avant la réponse
         try {
             if (created) {
-                mandat.persistAndFlush(); // recommandé pour feedback immédiat (sinon flush à la fin de transaction)
+                mandatEntity.persistAndFlush(); // recommandé pour feedback immédiat (sinon flush à la fin de transaction)
             } else {
-                mandat.flush();
+                mandatEntity.flush();
             }
         } catch (PersistenceException pe) {
             // RuntimeException => rollback automatique de la transaction (guides Quarkus)
@@ -103,7 +103,7 @@ public class ImportMandatController {
 
         return Response.status(created ? 201 : 200)
                 .entity(Map.of(
-                        "uid", mandat.uid,
+                        "uid", mandatEntity.uid,
                         "created", created
                 ))
                 .build();

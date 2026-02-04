@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.bourbontracker.entrypoint.mapper.ImportActeurMapper;
 import org.bourbontracker.entrypoint.requete.ImportActeurRequete;
-import org.bourbontracker.infra.bdd.Acteur;
+import org.bourbontracker.infra.bdd.entity.ActeurEntity;
 
 import java.util.Map;
 
@@ -32,20 +32,20 @@ public class ImportActeurController {
             return Response.status(400).entity(Map.of("error", "uid.#text est obligatoire")).build();
         }
 
-        Acteur acteur = Acteur.findById(uid);
+        ActeurEntity acteurEntity = ActeurEntity.findById(uid);
         boolean created = false;
 
-        if (acteur == null) {
-            acteur = new Acteur();
-            acteur.uidText = uid;
+        if (acteurEntity == null) {
+            acteurEntity = new ActeurEntity();
+            acteurEntity.uidText = uid;
             created = true;
         }
 
-        mapper.updateFromDto(importActeurRequete, acteur);
+        mapper.updateFromDto(importActeurRequete, acteurEntity);
 
         if (created) {
-            acteur.persist();
+            acteurEntity.persist();
         }
-        return Response.status(created ? 201 : 200).entity(Map.of("uid", acteur.uidText)).build();
+        return Response.status(created ? 201 : 200).entity(Map.of("uid", acteurEntity.uidText)).build();
     }
 }

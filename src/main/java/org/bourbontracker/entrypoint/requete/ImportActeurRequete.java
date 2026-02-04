@@ -1,24 +1,25 @@
 package org.bourbontracker.entrypoint.requete;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 import java.util.List;
 
 public class ImportActeurRequete {
-    public ActeurJson acteur;
+    public ActeurRequete acteur;
 
-    public static class ActeurJson {
+    public static class ActeurRequete {
         @JsonProperty("@xmlns:xsi")
         public String xmlnsXsi;
 
         public Uid uid;
-        public EtatCivil etatCivil;
-        public Profession profession;
+        public EtatCivilRequete etatCivilRequete;
+        public ProfessionRequete professionRequete;
 
         @JsonProperty("uri_hatvp")
         public String uriHatvp;
 
-        public Adresses adresses;
+        public AdressesRequete adressesRequete;
     }
 
     public static class Uid {
@@ -29,13 +30,13 @@ public class ImportActeurRequete {
         public String text; // OBLIGATOIRE
     }
 
-    public static class EtatCivil {
-        public Ident ident;
-        public InfoNaissance infoNaissance;
+    public static class EtatCivilRequete {
+        public IdentRequete identRequete;
+        public InfoNaissanceRequete infoNaissanceRequete;
         public LocalDate dateDeces;
     }
 
-    public static class Ident {
+    public static class IdentRequete {
         public String civ;
         public String prenom;
         public String nom;
@@ -43,28 +44,28 @@ public class ImportActeurRequete {
         public String trigramme;
     }
 
-    public static class InfoNaissance {
+    public static class InfoNaissanceRequete {
         public LocalDate dateNais;
         public String villeNais;
         public String depNais;
         public String paysNais;
     }
 
-    public static class Profession {
+    public static class ProfessionRequete {
         public String libelleCourant;
-        public SocProcINSEE socProcINSEE;
+        public SocProcINSEERequete socProcINSEERequete;
     }
 
-    public static class SocProcINSEE {
+    public static class SocProcINSEERequete {
         public String catSocPro;
         public String famSocPro;
     }
 
-    public static class Adresses {
-        public List<AdresseJson> adresse;
+    public static class AdressesRequete {
+        public List<AdresseRequete> adresse;
     }
 
-    public static class AdresseJson {
+    public static class AdresseRequete {
         @JsonProperty("@xsi:type")
         public String xsiType;
 

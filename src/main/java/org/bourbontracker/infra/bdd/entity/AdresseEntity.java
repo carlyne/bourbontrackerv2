@@ -1,11 +1,11 @@
-package org.bourbontracker.infra.bdd;
+package org.bourbontracker.infra.bdd.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "adresse")
-public class Adresse extends PanacheEntityBase {
+public class AdresseEntity extends PanacheEntityBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,7 @@ public class Adresse extends PanacheEntityBase {
     // Clé étrangère vers acteur.uid_text
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "acteur_uid_text", nullable = false)
-    public Acteur acteur;
+    public ActeurEntity acteurEntity;
 
     @Column(name = "xsi_type", columnDefinition = "text")
     public String xsiType;

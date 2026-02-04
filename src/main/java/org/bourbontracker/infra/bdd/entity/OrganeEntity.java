@@ -1,4 +1,4 @@
-package org.bourbontracker.infra.bdd;
+package org.bourbontracker.infra.bdd.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "organe")
-public class Organe extends PanacheEntityBase {
+public class OrganeEntity extends PanacheEntityBase {
 
     @Id
     @Column(name = "uid", nullable = false, length = 32)
@@ -60,7 +60,7 @@ public class Organe extends PanacheEntityBase {
     @Column(name = "secretariat_secretaire_02", columnDefinition = "text")
     public String secretariatSecretaire02;
 
-    @OneToMany(mappedBy = "organe")
-    public List<Mandat> mandats = new ArrayList<>();
+    @OneToMany(mappedBy = "organeEntity")
+    public List<MandatEntity> mandatEntities = new ArrayList<>();
 
 }

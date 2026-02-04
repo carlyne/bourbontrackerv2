@@ -1,4 +1,4 @@
-package org.bourbontracker.infra.bdd;
+package org.bourbontracker.infra.bdd.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
                 @Index(name = "idx_mandat_organe_ref", columnList = "organe_ref")
         }
 )
-public class Mandat extends PanacheEntityBase {
+public class MandatEntity extends PanacheEntityBase {
 
     @Id
     @Column(name = "uid", nullable = false, length = 32)
@@ -31,7 +31,7 @@ public class Mandat extends PanacheEntityBase {
             nullable = false,
             foreignKey = @ForeignKey(name = "fk_mandat_acteur")
     )
-    public Acteur acteur;
+    public ActeurEntity acteurEntity;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(
@@ -40,7 +40,7 @@ public class Mandat extends PanacheEntityBase {
             nullable = false,
             foreignKey = @ForeignKey(name = "fk_mandat_organe")
     )
-    public Organe organe;
+    public OrganeEntity organeEntity;
 
     // --- Champs Mandat (aplatis comme tes autres entities) ---
     @Column(name = "legislature", columnDefinition = "text")

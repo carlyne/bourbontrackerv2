@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.bourbontracker.entrypoint.mapper.ImportOrganeMapper;
 import org.bourbontracker.entrypoint.requete.ImportOrganeRequete;
-import org.bourbontracker.infra.bdd.Organe;
+import org.bourbontracker.infra.bdd.entity.OrganeEntity;
 
 import java.util.Map;
 
@@ -34,23 +34,23 @@ public class ImportOrganeController {
                     .build();
         }
 
-        Organe organe = Organe.findById(uid);
+        OrganeEntity organeEntity = OrganeEntity.findById(uid);
         boolean created = false;
 
-        if (organe == null) {
-            organe = new Organe();
-            organe.uid = uid; // géré par le controller
+        if (organeEntity == null) {
+            organeEntity = new OrganeEntity();
+            organeEntity.uid = uid; // géré par le controller
             created = true;
         }
 
-        mapper.updateFromDto(req, organe);
+        mapper.updateFromDto(req, organeEntity);
 
         if (created) {
-            organe.persist();
+            organeEntity.persist();
         }
 
         return Response.status(created ? 201 : 200)
-                .entity(Map.of("uid", organe.uid))
+                .entity(Map.of("uid", organeEntity.uid))
                 .build();
     }
 }

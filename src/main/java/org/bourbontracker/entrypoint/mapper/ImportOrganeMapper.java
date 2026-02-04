@@ -1,7 +1,7 @@
 package org.bourbontracker.entrypoint.mapper;
 
 import org.bourbontracker.entrypoint.requete.ImportOrganeRequete;
-import org.bourbontracker.infra.bdd.Organe;
+import org.bourbontracker.infra.bdd.entity.OrganeEntity;
 import org.mapstruct.*;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
@@ -33,5 +33,5 @@ public abstract class ImportOrganeMapper {
 
     @Mapping(target = "secretariatSecretaire01", source = "organe.secretariat.secretaire01")
     @Mapping(target = "secretariatSecretaire02", source = "organe.secretariat.secretaire02")
-    public abstract void updateFromDto(ImportOrganeRequete src, @MappingTarget Organe target);
+    public abstract void updateFromDto(ImportOrganeRequete src, @MappingTarget OrganeEntity target);
 }
