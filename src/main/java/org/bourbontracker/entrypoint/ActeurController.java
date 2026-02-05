@@ -6,7 +6,10 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.bourbontracker.domain.Acteur;
 import org.bourbontracker.domain.ActeurService;
+import org.bourbontracker.entrypoint.mapper.ActeurReponseMapper;
+import org.bourbontracker.entrypoint.reponse.ActeurReponse;
 
+import java.util.List;
 import java.util.Map;
 
 @Path("/api/acteurs")
@@ -15,6 +18,22 @@ public class ActeurController {
 
     @Inject
     ActeurService.Bean acteurService;
+
+    @Inject
+    ActeurReponseMapper responseMapper;
+
+    @GET
+    public Response getActeurs(
+            @QueryParam("nom") String nom,
+            @QueryParam("prenom") String prenom
+    ) {
+        List<Acteur> acteurs = acteurService.listerActeurs(nom, prenom);
+        List<ActeurReponse> response = acteurs.stream()
+                .map(responseMapper::toReponse)
+                .toList();
+
+        return Response.ok(response).build();
+    }
 
     @GET
     @Path("/{id}")
@@ -27,7 +46,7 @@ public class ActeurController {
 
         try {
             Acteur acteur = acteurService.chargerActeurAvecMandats(id);
-            return Response.ok(acteur).build();
+            return Response.ok(responseMapper.toReponse(acteur)).build();
         } catch (NotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(Map.of("error", "Acteur introuvable", "uid", id))
