@@ -75,6 +75,17 @@ public class MandatEntity extends PanacheEntityBase {
     @Column(name = "infos_qualite_lib_sex", columnDefinition = "text")
     public String infosQualiteLibQualiteSex;
 
+
+    // suppleants.suppleant (première entrée conservée)
+    @Column(name = "suppleant_date_debut")
+    public LocalDate suppleantDateDebut;
+
+    @Column(name = "suppleant_date_fin")
+    public LocalDate suppleantDateFin;
+
+    @Column(name = "suppleant_ref", columnDefinition = "text")
+    public String suppleantRef;
+
     // chambre
     @Column(name = "chambre", columnDefinition = "text")
     public String chambre;

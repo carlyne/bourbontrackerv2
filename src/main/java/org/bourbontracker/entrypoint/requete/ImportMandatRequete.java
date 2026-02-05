@@ -1,8 +1,10 @@
 package org.bourbontracker.entrypoint.requete;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ImportMandatRequete {
 
@@ -35,7 +37,7 @@ public class ImportMandatRequete {
         public InfosQualite infosQualite;
         public Organes organes;
 
-        public String suppleants;
+        public Suppleants suppleants;
         public String chambre;
 
         public Election election;
@@ -59,6 +61,17 @@ public class ImportMandatRequete {
         public Lieu lieu;
         public String causeMandat;
         public String refCirconscription;
+    }
+
+    public static class Suppleants {
+        @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+        public List<Suppleant> suppleant;
+    }
+
+    public static class Suppleant {
+        public LocalDate dateDebut;
+        public LocalDate dateFin;
+        public String suppleantRef;
     }
 
     public static class Lieu {
