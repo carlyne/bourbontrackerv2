@@ -41,6 +41,10 @@ public abstract class ImportMandatMapper {
     @Mapping(target = "infosQualiteLibQualite", source = "mandat.infosQualite.libQualite")
     @Mapping(target = "infosQualiteLibQualiteSex", source = "mandat.infosQualite.libQualiteSex")
 
+    @Mapping(target = "suppleantDateDebut", source = "mandat", qualifiedByName = "firstSuppleantDateDebut")
+    @Mapping(target = "suppleantDateFin", source = "mandat", qualifiedByName = "firstSuppleantDateFin")
+    @Mapping(target = "suppleantRef", source = "mandat", qualifiedByName = "firstSuppleantRef")
+
     @Mapping(target = "chambre", source = "mandat.chambre")
 
     @Mapping(target = "electionLieuRegion", source = "mandat.election.lieu.region")
@@ -83,4 +87,34 @@ public abstract class ImportMandatMapper {
         if (v.isEmpty()) return null;
         return Integer.valueOf(v); // si tu veux “tolérant”, on peut catcher NumberFormatException
     }
+
+
+    @Named("firstSuppleantDateDebut")
+    protected java.time.LocalDate firstSuppleantDateDebut(ImportMandatRequete.MandatJson mandat) {
+        ImportMandatRequete.Suppleant suppleant = firstSuppleant(mandat);
+        return suppleant == null ? null : suppleant.dateDebut;
+    }
+
+    @Named("firstSuppleantDateFin")
+    protected java.time.LocalDate firstSuppleantDateFin(ImportMandatRequete.MandatJson mandat) {
+        ImportMandatRequete.Suppleant suppleant = firstSuppleant(mandat);
+        return suppleant == null ? null : suppleant.dateFin;
+    }
+
+    @Named("firstSuppleantRef")
+    protected String firstSuppleantRef(ImportMandatRequete.MandatJson mandat) {
+        ImportMandatRequete.Suppleant suppleant = firstSuppleant(mandat);
+        if (suppleant == null || suppleant.suppleantRef == null || suppleant.suppleantRef.isBlank()) {
+            return null;
+        }
+        return suppleant.suppleantRef;
+    }
+
+    private ImportMandatRequete.Suppleant firstSuppleant(ImportMandatRequete.MandatJson mandat) {
+        if (mandat == null || mandat.suppleants == null || mandat.suppleants.suppleant == null || mandat.suppleants.suppleant.isEmpty()) {
+            return null;
+        }
+        return mandat.suppleants.suppleant.get(0);
+    }
+
 }
