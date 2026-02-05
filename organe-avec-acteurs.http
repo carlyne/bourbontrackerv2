@@ -1,0 +1,2 @@
+GET http://localhost:8080/api/legislatures/17/organes-acteurs
+Accept: application/json

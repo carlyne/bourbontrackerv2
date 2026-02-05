@@ -1,13 +1,13 @@
 {
   "mandat": {
     "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-    "uid": "PM57382",
-    "acteurRef": "PA1654",
-    "legislature": "9",
+    "uid": "PM840261",
+    "acteurRef": "PA793166",
+    "legislature": "17",
     "typeOrgane": "ASSEMBLEE",
-    "dateDebut": "1988-06-12",
+    "dateDebut": "2024-06-30",
     "datePublication": null,
-    "dateFin": "1993-04-01",
+    "dateFin": null,
     "preseance": "50",
     "nominPrincipale": "1",
     "infosQualite": {
@@ -16,28 +16,37 @@
       "libQualiteSex": "membre"
     },
     "organes": {
-      "organeRef": "PO44311"
+      "organeRef": "PO838901"
     },
-    "suppleants": null,
+    "suppleants": {
+      "suppleant": {
+        "dateDebut": "2024-06-30",
+        "dateFin": null,
+        "suppleantRef": "PA840087"
+      }
+    },
     "chambre": null,
     "election": {
       "lieu": {
-        "region": "Nouvelle-Aquitaine",
+        "region": "Hauts-de-France",
         "regionType": "M\u00e9tropolitain",
-        "departement": "Corr\u00e8ze",
-        "numDepartement": "19",
-        "numCirco": "1"
+        "departement": "Aisne",
+        "numDepartement": "02",
+        "numCirco": "5"
       },
       "causeMandat": "\u00e9lections g\u00e9n\u00e9rales",
-      "refCirconscription": "PO50744"
+      "refCirconscription": "PO838929"
     },
     "mandature": {
-      "datePriseFonction": "1988-06-13",
-      "causeFin": "Fin de l\u00e9gislature",
-      "premiereElection": "0",
+      "datePriseFonction": "2024-07-01",
+      "causeFin": null,
+      "premiereElection": "1",
       "placeHemicycle": null,
       "mandatRemplaceRef": null
     },
-    "collaborateurs": null
+    "collaborateurs": [
+      null,
+      null
+    ]
   }
 }
