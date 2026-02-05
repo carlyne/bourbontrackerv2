@@ -43,7 +43,11 @@ public class ImportMandatRequete {
         public Election election;
         public Mandature mandature;
 
-        public String collaborateurs;
+        /**
+         * Peut arriver sous forme de liste contenant uniquement des null (ex: [null, null]).
+         * On le désérialise pour accepter le payload, mais il n'est pas persisté.
+         */
+        public List<Object> collaborateurs;
     }
 
     public static class InfosQualite {
