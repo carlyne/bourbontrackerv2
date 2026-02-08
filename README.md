@@ -54,6 +54,7 @@ La base est exposée sur `localhost:5433` (db/user/password: `bourbon`).
 ```
 
 API disponible sur `http://localhost:8080`.
+Swagger UI disponible sur `http://localhost:8080/q/swagger-ui`.
 
 ## Endpoints principaux
 
