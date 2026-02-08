@@ -12,7 +12,6 @@ import org.bourbontracker.infra.bdd.mapper.DocumentEntityMapper;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class DocumentRepositoryImpl implements DocumentRepository {
@@ -36,11 +35,14 @@ public class DocumentRepositoryImpl implements DocumentRepository {
                 .map(document -> document.uid)
                 .toList();
 
-        Map<String, DocumentEntity> documentsParUid = DocumentEntity
+        List<DocumentEntity> documentsAvecCosignataires = DocumentEntity
                 .find("select distinct d from DocumentEntity d left join fetch d.coSignataires where d.uid in ?1", documentUids)
-                .list()
-                .stream()
-                .collect(Collectors.toMap(document -> document.uid, document -> document, (a, b) -> a, LinkedHashMap::new));
+                .list();
+
+        Map<String, DocumentEntity> documentsParUid = new LinkedHashMap<>();
+        for (DocumentEntity document : documentsAvecCosignataires) {
+            documentsParUid.putIfAbsent(document.uid, document);
+        }
 
         List<Document> items = documentsPage.stream()
                 .map(document -> documentsParUid.getOrDefault(document.uid, document))
