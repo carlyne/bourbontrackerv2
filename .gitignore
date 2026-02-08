@@ -43,3 +43,10 @@ nb-configuration.xml
 /.quarkus/cli/plugins/
 # TLS Certificates
 .certs/
+
+# Project
+src/test/java/resources/document
+script/mandat
+src/test/java/resources/acteur
+src/test/java/resources/organe
+script/dossierParlementaire

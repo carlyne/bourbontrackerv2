@@ -29,12 +29,12 @@
     "election": {
       "lieu": {
         "region": "Hauts-de-France",
-        "regionType": "M\u00e9tropolitain",
+        "regionType": "Métropolitain",
         "departement": "Aisne",
         "numDepartement": "02",
         "numCirco": "5"
       },
-      "causeMandat": "\u00e9lections g\u00e9n\u00e9rales",
+      "causeMandat": "élections générales",
       "refCirconscription": "PO838929"
     },
     "mandature": {
