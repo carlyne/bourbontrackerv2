@@ -48,4 +48,5 @@ nb-configuration.xml
 src/test/resources/document
 src/test/resources/acteur
 src/test/resources/organe
+src/test/resources/mandat
 src/test/resources/dossierParlementaire
