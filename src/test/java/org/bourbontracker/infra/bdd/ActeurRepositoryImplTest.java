@@ -158,6 +158,55 @@ class ActeurRepositoryImplTest {
         assertTrue(result.isEmpty());
     }
 
+    @Test
+    void trouverActeur_retourneActeurAvecMandats() {
+        ActeurEntity acteurEntity = new ActeurEntity();
+        acteurEntity.uidText = "A10";
+
+        when(ActeurEntity.findById("A10")).thenReturn(acteurEntity);
+
+        MandatEntity mandat1 = new MandatEntity();
+        mandat1.acteurEntity = acteurEntity;
+        mandat1.organeEntity = new org.bourbontracker.infra.bdd.entity.OrganeEntity();
+        MandatEntity mandat2 = new MandatEntity();
+        mandat2.acteurEntity = acteurEntity;
+        mandat2.organeEntity = new org.bourbontracker.infra.bdd.entity.OrganeEntity();
+
+        PanacheQuery<MandatEntity> mandatQuery = mockQuery();
+        when(MandatEntity.find(
+                "select m from MandatEntity m join fetch m.organeEntity "
+                        + "where m.acteurEntity.uidText = ?1 order by m.dateDebut",
+                "A10"
+        )).thenReturn((PanacheQuery) mandatQuery);
+        Mockito.doReturn(List.of(mandat1, mandat2)).when(mandatQuery).list();
+
+        Acteur result = repository.trouverActeur("A10");
+
+        assertEquals("A10", result.uid);
+        assertEquals(2, result.mandats.size());
+    }
+
+    @Test
+    void trouverActeur_retourneActeurSansMandat() {
+        ActeurEntity acteurEntity = new ActeurEntity();
+        acteurEntity.uidText = "A11";
+
+        when(ActeurEntity.findById("A11")).thenReturn(acteurEntity);
+
+        PanacheQuery<MandatEntity> mandatQuery = mockQuery();
+        when(MandatEntity.find(
+                "select m from MandatEntity m join fetch m.organeEntity "
+                        + "where m.acteurEntity.uidText = ?1 order by m.dateDebut",
+                "A11"
+        )).thenReturn((PanacheQuery) mandatQuery);
+        Mockito.doReturn(List.of()).when(mandatQuery).list();
+
+        Acteur result = repository.trouverActeur("A11");
+
+        assertEquals("A11", result.uid);
+        assertTrue(result.mandats.isEmpty());
+    }
+
     @SuppressWarnings("unchecked")
     private static <T> PanacheQuery<T> mockQuery() {
         return (PanacheQuery<T>) Mockito.mock(PanacheQuery.class);
