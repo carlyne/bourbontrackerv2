@@ -14,6 +14,9 @@ import org.bourbontracker.entrypoint.reponse.OrganeAvecActeursReponse;
 import java.util.List;
 import java.util.Map;
 
+//TODO: Gestion Swagger pour chaque endpoint
+//TODO: Gestion des exceptions
+//TODO: Gestion validateurs sur les requêtes d'entrée
 @Path("/api/legislatures")
 @Produces(MediaType.APPLICATION_JSON)
 public class OrganeAvecActeursController {
