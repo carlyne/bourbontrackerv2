@@ -1,5 +1,6 @@
 package org.bourbontracker.infra.bdd;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
 import org.bourbontracker.domain.Acteur;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+
+@ApplicationScoped
 public class ActeurRepositoryImpl implements ActeurRepositoryInterface {
     @Inject
     ActeurMapper mapper;

@@ -5,7 +5,7 @@ Accept: application/json
 GET http://localhost:8080/api/acteurs?nom=Panot
 Accept: application/json
 
-    ###
+###
 GET http://localhost:8080/api/acteurs?prenom=Mathilde
 Accept: application/json
 
