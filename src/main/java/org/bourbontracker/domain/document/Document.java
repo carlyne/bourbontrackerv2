@@ -1,5 +1,7 @@
 package org.bourbontracker.domain.document;
 
+import org.bourbontracker.domain.acteur.Acteur;
+
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,5 +14,5 @@ public class Document {
     public OffsetDateTime datePublication;
     public OffsetDateTime datePublicationWeb;
     public String titrePrincipal;
-    public List<DocumentCosignataire> coSignataires = new ArrayList<>();
+    public List<Acteur> coSignataires = new ArrayList<>();
 }
