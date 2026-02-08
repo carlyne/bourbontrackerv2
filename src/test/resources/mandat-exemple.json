@@ -1,8 +1,8 @@
 {
   "mandat": {
     "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-    "uid": "PM840261",
-    "acteurRef": "PA793166",
+    "uid": "PM840420",
+    "acteurRef": "PA720892",
     "legislature": "17",
     "typeOrgane": "ASSEMBLEE",
     "dateDebut": "2024-06-30",
@@ -22,20 +22,20 @@
       "suppleant": {
         "dateDebut": "2024-06-30",
         "dateFin": null,
-        "suppleantRef": "PA840087"
+        "suppleantRef": "PA795498"
       }
     },
     "chambre": null,
     "election": {
       "lieu": {
-        "region": "Hauts-de-France",
+        "region": "Ile-de-France",
         "regionType": "Métropolitain",
-        "departement": "Aisne",
-        "numDepartement": "02",
-        "numCirco": "5"
+        "departement": "Val-de-Marne",
+        "numDepartement": "94",
+        "numCirco": "10"
       },
       "causeMandat": "élections générales",
-      "refCirconscription": "PO838929"
+      "refCirconscription": "PO838981"
     },
     "mandature": {
       "datePriseFonction": "2024-07-01",
@@ -44,9 +44,37 @@
       "placeHemicycle": null,
       "mandatRemplaceRef": null
     },
-    "collaborateurs": [
-      null,
-      null
-    ]
+    "collaborateurs": {
+      "collaborateur": [
+        {
+          "qualite": "M.",
+          "prenom": "Helmi",
+          "nom": "M'Rabet",
+          "dateDebut": null,
+          "dateFin": null
+        },
+        {
+          "qualite": "Mme",
+          "prenom": "Elise",
+          "nom": "Trouvé-Buisson",
+          "dateDebut": null,
+          "dateFin": null
+        },
+        {
+          "qualite": "M.",
+          "prenom": "Clément",
+          "nom": "Morel",
+          "dateDebut": null,
+          "dateFin": null
+        },
+        {
+          "qualite": "M.",
+          "prenom": "Maxime",
+          "nom": "Dacalor",
+          "dateDebut": null,
+          "dateFin": null
+        }
+      ]
+    }
   }
 }

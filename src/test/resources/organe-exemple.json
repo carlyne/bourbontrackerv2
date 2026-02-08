@@ -1,21 +1,21 @@
 {
   "organe": {
     "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-    "uid": "PO44311",
+    "uid": "PO838901",
     "codeType": "ASSEMBLEE",
-    "libelle": "Assemblée nationale de la 9ème législature",
+    "libelle": "Assemblée nationale de la 17ème législature",
     "libelleEdition": "de l'Assemblée",
     "libelleAbrege": "Assemblée",
     "libelleAbrev": "AN",
     "viMoDe": {
-      "dateDebut": "1988-06-05",
+      "dateDebut": "2024-07-01",
       "dateAgrement": null,
-      "dateFin": "1993-04-01"
+      "dateFin": null
     },
     "organeParent": null,
     "chambre": null,
     "regime": "5ème République",
-    "legislature": "9",
+    "legislature": "17",
     "secretariat": {
       "secretaire01": null,
       "secretaire02": null

@@ -3,46 +3,37 @@
     "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
     "uid": {
       "@xsi:type": "IdActeur_type",
-      "#text": "PA569"
+      "#text": "PA720892"
     },
     "etatCivil": {
       "ident": {
-        "civ": "M.",
-        "prenom": "Philippe",
-        "nom": "Bonnecarrère",
-        "alpha": "Bonnecarrère_philippe",
-        "trigramme": "PBC"
+        "civ": "Mme",
+        "prenom": "Mathilde",
+        "nom": "Panot",
+        "alpha": "Panot",
+        "trigramme": "MPA"
       },
       "infoNaissance": {
-        "dateNais": "1955-07-12",
-        "villeNais": "Toulouse",
-        "depNais": "Haute-Garonne",
-        "paysNais": null
+        "dateNais": "1989-01-15",
+        "villeNais": "Tours",
+        "depNais": "Indre-et-Loire",
+        "paysNais": "France"
       },
       "dateDeces": null
     },
     "profession": {
-      "libelleCourant": "Avocat",
+      "libelleCourant": "Coordinatrice de projets associatifs",
       "socProcINSEE": {
-        "catSocPro": "Professions libérales et assimilés",
+        "catSocPro": "Cadres d'entreprise",
         "famSocPro": "Cadres et professions intellectuelles supérieures"
       }
     },
-    "uri_hatvp": null,
+    "uri_hatvp": "https://www.hatvp.fr/pages_nominatives/panot-mathilde",
     "adresses": {
       "adresse": [
         {
-          "@xsi:type": "AdresseSiteWeb_Type",
-          "uid": "AD703763",
-          "type": "23",
-          "typeLibelle": "Url sénateur",
-          "poids": null,
-          "adresseDeRattachement": null,
-          "valElec": "https://www.senat.fr/senateur/bonnecarrere_philippe14089y.html"
-        },
-        {
           "@xsi:type": "AdressePostale_Type",
-          "uid": "AD841963",
+          "uid": "AD720894",
           "type": "0",
           "typeLibelle": "Adresse officielle",
           "poids": "1",
@@ -55,13 +46,54 @@
           "ville": "Paris 07 SP"
         },
         {
-          "@xsi:type": "AdresseMail_Type",
-          "uid": "AD843829",
-          "type": "15",
-          "typeLibelle": "Mèl",
+          "@xsi:type": "AdresseSiteWeb_Type",
+          "uid": "AD725694",
+          "type": "24",
+          "typeLibelle": "Twitter",
           "poids": null,
           "adresseDeRattachement": null,
-          "valElec": "philippe.bonnecarrere@assemblee-nationale.fr"
+          "valElec": "@mathildepanot"
+        },
+        {
+          "@xsi:type": "AdresseSiteWeb_Type",
+          "uid": "AD726316",
+          "type": "25",
+          "typeLibelle": "Facebook",
+          "poids": null,
+          "adresseDeRattachement": null,
+          "valElec": "MathildePanotFI"
+        },
+        {
+          "@xsi:type": "AdressePostale_Type",
+          "uid": "AD800319",
+          "type": "2",
+          "typeLibelle": "Adresse publiée de circonscription",
+          "poids": "22",
+          "adresseDeRattachement": null,
+          "intitule": null,
+          "numeroRue": "01",
+          "nomRue": "Promenée du Liégat",
+          "complementAdresse": null,
+          "codePostal": "94200",
+          "ville": "Ivry sur Seine"
+        },
+        {
+          "@xsi:type": "AdresseSiteWeb_Type",
+          "uid": "AD800321",
+          "type": "29",
+          "typeLibelle": "Instagram",
+          "poids": null,
+          "adresseDeRattachement": null,
+          "valElec": "@mathildepanot"
+        },
+        {
+          "@xsi:type": "AdresseMail_Type",
+          "uid": "AD800323",
+          "type": "15",
+          "typeLibelle": "M\u00e8l",
+          "poids": null,
+          "adresseDeRattachement": null,
+          "valElec": "Mathilde.Panot@assemblee-nationale.fr"
         }
       ]
     }

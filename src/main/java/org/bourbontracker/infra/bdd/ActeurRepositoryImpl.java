@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
+//TODO: Gestion exception
 @ApplicationScoped
 public class ActeurRepositoryImpl implements ActeurRepositoryInterface {
     @Inject
