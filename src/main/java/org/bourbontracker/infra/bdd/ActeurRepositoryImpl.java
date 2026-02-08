@@ -3,11 +3,11 @@ package org.bourbontracker.infra.bdd;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
-import org.bourbontracker.domain.Acteur;
-import org.bourbontracker.domain.ActeurRepositoryInterface;
+import org.bourbontracker.domain.acteur.Acteur;
+import org.bourbontracker.domain.acteur.ActeurRepositoryInterface;
 import org.bourbontracker.infra.bdd.entity.ActeurEntity;
 import org.bourbontracker.infra.bdd.entity.MandatEntity;
-import org.bourbontracker.infra.bdd.mapper.ActeurMapper;
+import org.bourbontracker.infra.bdd.mapper.ActeurEntityMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class ActeurRepositoryImpl implements ActeurRepositoryInterface {
     @Inject
-    ActeurMapper mapper;
+    ActeurEntityMapper mapper;
 
     @Override
     public List<Acteur> listerActeurs(String nom, String prenom) {

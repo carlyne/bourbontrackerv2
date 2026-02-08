@@ -4,7 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.mock.PanacheMock;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import org.bourbontracker.domain.Acteur;
+import org.bourbontracker.domain.acteur.Acteur;
 import org.bourbontracker.infra.bdd.entity.ActeurEntity;
 import org.bourbontracker.infra.bdd.entity.MandatEntity;
 import org.junit.jupiter.api.BeforeEach;
