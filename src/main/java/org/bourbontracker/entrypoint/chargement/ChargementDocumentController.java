@@ -45,9 +45,6 @@ public class ChargementDocumentController {
         }
 
         String organeRef = (req.document.organesReferents == null) ? null : req.document.organesReferents.organeRef;
-        if (created && (organeRef == null || organeRef.isBlank())) {
-            return Response.status(400).entity(Map.of("error", "document.organesReferents.organeRef est obligatoire")).build();
-        }
         if (organeRef != null && !organeRef.isBlank()) {
             if (OrganeEntity.findById(organeRef) == null) {
                 return Response.status(409).entity(Map.of(
