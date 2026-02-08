@@ -41,6 +41,8 @@ public class ChargementDocumentRequete {
         public Notice notice;
 
         public CoSignataires coSignataires;
+
+        public Auteurs auteurs;
     }
 
     public static class CycleDeVie {
@@ -99,12 +101,22 @@ public class ChargementDocumentRequete {
         public List<CoSignataire> coSignataire;
     }
 
+    public static class Auteurs {
+        @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+        public List<Auteur> auteur;
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class CoSignataire {
         public Acteur acteur;
         public String dateCosignature;
         public String dateRetraitCosignature;
         public String edite;
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Auteur {
+        public Acteur acteur;
     }
 
     public static class Acteur {

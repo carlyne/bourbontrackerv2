@@ -74,22 +74,35 @@ public abstract class ChargementDocumentMapper {
             target.organeReferent = em.getReference(OrganeEntity.class, organeRef);
         }
 
-        if (src.document.coSignataires == null || src.document.coSignataires.coSignataire == null) {
-            return;
+        Set<String> seen = new HashSet<>();
+
+        if (src.document.coSignataires != null && src.document.coSignataires.coSignataire != null) {
+            for (var cosignataire : src.document.coSignataires.coSignataire) {
+                ajouterActeurSiPresent(cosignataire == null ? null : cosignataire.acteur, target, seen);
+            }
         }
 
-        Set<String> seen = new HashSet<>();
-        for (var cosignataire : src.document.coSignataires.coSignataire) {
-            if (cosignataire == null || cosignataire.acteur == null) {
-                continue;
+        if (src.document.auteurs != null && src.document.auteurs.auteur != null) {
+            for (var auteur : src.document.auteurs.auteur) {
+                ajouterActeurSiPresent(auteur == null ? null : auteur.acteur, target, seen);
             }
-            String acteurRef = cosignataire.acteur.acteurRef;
-            if (acteurRef == null || acteurRef.isBlank() || !seen.add(acteurRef)) {
-                continue;
-            }
-            ActeurEntity acteurEntity = em.getReference(ActeurEntity.class, acteurRef);
-            target.addCoSignataire(acteurEntity);
         }
+    }
+
+    private void ajouterActeurSiPresent(
+            ChargementDocumentRequete.Acteur acteur,
+            @MappingTarget DocumentEntity target,
+            Set<String> seen
+    ) {
+        if (acteur == null) {
+            return;
+        }
+        String acteurRef = acteur.acteurRef;
+        if (acteurRef == null || acteurRef.isBlank() || !seen.add(acteurRef)) {
+            return;
+        }
+        ActeurEntity acteurEntity = em.getReference(ActeurEntity.class, acteurRef);
+        target.addCoSignataire(acteurEntity);
     }
 
     @Named("toBooleanOrNull")
