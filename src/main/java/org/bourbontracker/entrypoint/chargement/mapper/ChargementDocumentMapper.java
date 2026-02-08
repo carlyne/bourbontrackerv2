@@ -54,7 +54,7 @@ public abstract class ChargementDocumentMapper {
     @Mapping(target = "noticeNumero", source = "document.notice.numNotice")
     @Mapping(target = "noticeFormule", source = "document.notice.formule")
     @Mapping(target = "noticeAdoptionConforme", source = "document.notice.adoptionConforme", qualifiedByName = "toBooleanOrNull")
-    public abstract void updateFromDto(ChargementDocumentRequete src, @MappingTarget DocumentEntity target);
+    public abstract void mettreAJourDepuisRequete(ChargementDocumentRequete src, @MappingTarget DocumentEntity target);
 
     @BeforeMapping
     protected void clearCosignataires(@MappingTarget DocumentEntity target) {

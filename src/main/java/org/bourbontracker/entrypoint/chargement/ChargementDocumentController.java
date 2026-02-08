@@ -1,5 +1,6 @@
 package org.bourbontracker.entrypoint.chargement;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.inject.Inject;
 import jakarta.persistence.PersistenceException;
 import jakarta.transaction.Transactional;
@@ -30,8 +31,8 @@ public class ChargementDocumentController {
     @POST
     @Path("/documents")
     @Transactional
-    public Response importDocument(ChargementDocumentRequete req) {
-        String uid = (req == null || req.document == null) ? null : req.document.uid;
+    public Response importDocument(ChargementDocumentRequete requete) {
+        String uid = (requete == null || requete.document == null) ? null : requete.document.uid;
         if (uid == null || uid.isBlank()) {
             return Response.status(400).entity(Map.of("error", "document.uid est obligatoire")).build();
         }
@@ -44,7 +45,7 @@ public class ChargementDocumentController {
             created = true;
         }
 
-        String organeRef = (req.document.organesReferents == null) ? null : req.document.organesReferents.organeRef;
+        String organeRef = (requete.document.organesReferents == null) ? null : requete.document.organesReferents.organeRef;
         if (organeRef != null && !organeRef.isBlank()) {
             if (OrganeEntity.findById(organeRef) == null) {
                 return Response.status(409).entity(Map.of(
@@ -54,8 +55,8 @@ public class ChargementDocumentController {
             }
         }
 
-        if (req.document.coSignataires != null && req.document.coSignataires.coSignataire != null) {
-            for (var cosignataire : req.document.coSignataires.coSignataire) {
+        if (requete.document.coSignataires != null && requete.document.coSignataires.coSignataire != null) {
+            for (var cosignataire : requete.document.coSignataires.coSignataire) {
                 if (cosignataire == null || cosignataire.acteur == null) {
                     continue;
                 }
@@ -72,13 +73,13 @@ public class ChargementDocumentController {
             }
         }
 
-        mapper.updateFromDto(req, documentEntity);
+        mapper.mettreAJourDepuisRequete(requete, documentEntity);
 
         try {
             if (created) {
                 documentEntity.persistAndFlush();
             } else {
-                documentEntity.flush();
+                PanacheEntityBase.flush();
             }
         } catch (PersistenceException pe) {
             throw new WebApplicationException(
