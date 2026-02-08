@@ -12,6 +12,8 @@ import org.bourbontracker.infra.bdd.mapper.ActeurMapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @ApplicationScoped
@@ -49,8 +51,27 @@ public class ActeurRepositoryImpl implements ActeurRepositoryInterface {
                     .list();
         }
 
+        if (acteursEntities.isEmpty()) {
+            return List.of();
+        }
+
+        List<String> acteurUids = acteursEntities.stream()
+                .map(acteurEntity -> acteurEntity.uidText)
+                .toList();
+
+        List<MandatEntity> listeMandatsEntities = MandatEntity
+                .find("select m from MandatEntity m join fetch m.organeEntity where m.acteurEntity.uidText in ?1 order by m.dateDebut",
+                        acteurUids)
+                .list();
+
+        Map<String, List<MandatEntity>> mandatsParActeur = listeMandatsEntities.stream()
+                .collect(Collectors.groupingBy(mandat -> mandat.acteurEntity.uidText));
+
         return acteursEntities.stream()
-                .map(acteurEntity -> mapper.acteurEntityToActeur(acteurEntity, List.of()))
+                .map(acteurEntity -> mapper.acteurEntityToActeur(
+                        acteurEntity,
+                        mandatsParActeur.getOrDefault(acteurEntity.uidText, List.of())
+                ))
                 .toList();
     }
 
