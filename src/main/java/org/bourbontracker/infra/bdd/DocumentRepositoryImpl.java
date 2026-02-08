@@ -36,7 +36,7 @@ public class DocumentRepositoryImpl implements DocumentRepository {
                 .toList();
 
         List<DocumentEntity> documentsAvecCosignataires = DocumentEntity
-                .find("select distinct d from DocumentEntity d left join fetch d.coSignataires where d.uid in ?1", documentUids)
+                .find("select distinct d from DocumentEntity d left join fetch d.coSignataires left join fetch d.auteurs where d.uid in ?1", documentUids)
                 .list();
 
         Map<String, DocumentEntity> documentsParUid = new LinkedHashMap<>();

@@ -35,5 +35,6 @@ public abstract class DocumentEntityMapper {
     }
 
     @Mapping(target = "coSignataires", expression = "java(construireListeCosignataires(src.coSignataires))")
+    @Mapping(target = "auteurs", expression = "java(construireListeCosignataires(src.auteurs))")
     public abstract Document documentEntityToDocument(DocumentEntity src);
 }

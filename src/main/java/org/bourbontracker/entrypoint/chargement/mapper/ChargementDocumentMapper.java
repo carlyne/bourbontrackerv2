@@ -27,6 +27,7 @@ public abstract class ChargementDocumentMapper {
     @Mapping(target = "uid", ignore = true)
     @Mapping(target = "organeReferent", ignore = true)
     @Mapping(target = "coSignataires", ignore = true)
+    @Mapping(target = "auteurs", ignore = true)
 
     @Mapping(target = "xmlns", source = "document.xmlns")
     @Mapping(target = "xmlnsXsi", source = "document.xmlnsXsi")
@@ -63,6 +64,13 @@ public abstract class ChargementDocumentMapper {
         }
     }
 
+    @BeforeMapping
+    protected void clearAuteurs(@MappingTarget DocumentEntity target) {
+        if (target.auteurs != null) {
+            target.auteurs.clear();
+        }
+    }
+
     @AfterMapping
     protected void attachRefs(ChargementDocumentRequete src, @MappingTarget DocumentEntity target) {
         if (src == null || src.document == null) {
@@ -74,22 +82,23 @@ public abstract class ChargementDocumentMapper {
             target.organeReferent = em.getReference(OrganeEntity.class, organeRef);
         }
 
-        Set<String> seen = new HashSet<>();
+        Set<String> seenCosignataires = new HashSet<>();
+        Set<String> seenAuteurs = new HashSet<>();
 
         if (src.document.coSignataires != null && src.document.coSignataires.coSignataire != null) {
             for (var cosignataire : src.document.coSignataires.coSignataire) {
-                ajouterActeurSiPresent(cosignataire == null ? null : cosignataire.acteur, target, seen);
+                ajouterCosignataireSiPresent(cosignataire == null ? null : cosignataire.acteur, target, seenCosignataires);
             }
         }
 
         if (src.document.auteurs != null && src.document.auteurs.auteur != null) {
             for (var auteur : src.document.auteurs.auteur) {
-                ajouterActeurSiPresent(auteur == null ? null : auteur.acteur, target, seen);
+                ajouterAuteurSiPresent(auteur == null ? null : auteur.acteur, target, seenAuteurs);
             }
         }
     }
 
-    private void ajouterActeurSiPresent(
+    private void ajouterCosignataireSiPresent(
             ChargementDocumentRequete.Acteur acteur,
             @MappingTarget DocumentEntity target,
             Set<String> seen
@@ -103,6 +112,22 @@ public abstract class ChargementDocumentMapper {
         }
         ActeurEntity acteurEntity = em.getReference(ActeurEntity.class, acteurRef);
         target.addCoSignataire(acteurEntity);
+    }
+
+    private void ajouterAuteurSiPresent(
+            ChargementDocumentRequete.Acteur acteur,
+            @MappingTarget DocumentEntity target,
+            Set<String> seen
+    ) {
+        if (acteur == null) {
+            return;
+        }
+        String acteurRef = acteur.acteurRef;
+        if (acteurRef == null || acteurRef.isBlank() || !seen.add(acteurRef)) {
+            return;
+        }
+        ActeurEntity acteurEntity = em.getReference(ActeurEntity.class, acteurRef);
+        target.addAuteur(acteurEntity);
     }
 
     @Named("toBooleanOrNull")

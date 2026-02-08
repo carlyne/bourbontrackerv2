@@ -15,4 +15,5 @@ public class DocumentReponse {
     public OffsetDateTime datePublicationWeb;
     public String titrePrincipal;
     public List<ActeurReponse> coSignataires = new ArrayList<>();
+    public List<ActeurReponse> auteurs = new ArrayList<>();
 }
