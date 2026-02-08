@@ -1,4 +1,4 @@
-package org.bourbontracker.entrypoint.organe.reponse;
+package org.bourbontracker.entrypoint.legislature.reponse;
 
 import java.time.LocalDate;
 

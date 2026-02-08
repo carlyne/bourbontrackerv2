@@ -3,8 +3,8 @@ package org.bourbontracker.infra.bdd;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.bourbontracker.domain.acteur.Acteur;
-import org.bourbontracker.domain.organe.OrganeAvecActeurs;
-import org.bourbontracker.domain.organe.OrganeAvecActeursRepositoryInterface;
+import org.bourbontracker.domain.legislature.Legislature;
+import org.bourbontracker.domain.legislature.LegislatureRepository;
 import org.bourbontracker.infra.bdd.entity.ActeurEntity;
 import org.bourbontracker.infra.bdd.entity.MandatEntity;
 import org.bourbontracker.infra.bdd.entity.OrganeEntity;
@@ -18,15 +18,15 @@ import java.util.Map;
 
 //TODO: Gestion exception
 @ApplicationScoped
-public class OrganeAvecActeursRepositoryImpl implements OrganeAvecActeursRepositoryInterface {
+public class LegislatureRepositoryImpl implements LegislatureRepository {
 
     @Inject
     ActeurEntityMapper mapper;
 
     @Override
-    public List<OrganeAvecActeurs> listerOrganesAvecActeursParLegislature(String legislature) {
+    public List<Legislature> listerActeursParOrganes(String legislature) {
         List<OrganeEntity> organes = chargerOrganes(legislature);
-        Map<String, OrganeAvecActeurs> organesParUid = indexerOrganes(organes);
+        Map<String, Legislature> organesParUid = indexerOrganes(organes);
         List<MandatEntity> mandats = chargerMandats(legislature);
         associerActeursAuxOrganes(organesParUid, mandats);
         return new ArrayList<>(organesParUid.values());
@@ -51,10 +51,10 @@ public class OrganeAvecActeursRepositoryImpl implements OrganeAvecActeursReposit
                 .list();
     }
 
-    private Map<String, OrganeAvecActeurs> indexerOrganes(List<OrganeEntity> organes) {
-        Map<String, OrganeAvecActeurs> organesParUid = new LinkedHashMap<>();
+    private Map<String, Legislature> indexerOrganes(List<OrganeEntity> organes) {
+        Map<String, Legislature> organesParUid = new LinkedHashMap<>();
         for (OrganeEntity organe : organes) {
-            OrganeAvecActeurs item = new OrganeAvecActeurs();
+            Legislature item = new Legislature();
             item.organe = mapper.organeEntityToOrgane(organe);
             item.acteurs = new ArrayList<>();
             organesParUid.put(organe.uid, item);
@@ -63,7 +63,7 @@ public class OrganeAvecActeursRepositoryImpl implements OrganeAvecActeursReposit
     }
 
     private void associerActeursAuxOrganes(
-            Map<String, OrganeAvecActeurs> organesParUid,
+            Map<String, Legislature> organesParUid,
             List<MandatEntity> mandats
     ) {
         Map<String, Map<String, List<MandatEntity>>> mandatsParOrganeEtActeur = new HashMap<>();
@@ -85,7 +85,7 @@ public class OrganeAvecActeursRepositoryImpl implements OrganeAvecActeursReposit
 
         for (var orgEntry : mandatsParOrganeEtActeur.entrySet()) {
             String orgUid = orgEntry.getKey();
-            OrganeAvecActeurs bucket = organesParUid.get(orgUid);
+            Legislature bucket = organesParUid.get(orgUid);
             if (bucket == null) {
                 continue;
             }

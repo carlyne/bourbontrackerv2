@@ -3,7 +3,7 @@ package org.bourbontracker.infra.bdd.mapper;
 import org.bourbontracker.domain.acteur.Acteur;
 import org.bourbontracker.domain.acteur.EtatCivil;
 import org.bourbontracker.domain.acteur.Mandat;
-import org.bourbontracker.domain.organe.Organe;
+import org.bourbontracker.domain.legislature.Organe;
 import org.bourbontracker.infra.bdd.entity.ActeurEntity;
 import org.bourbontracker.infra.bdd.entity.MandatEntity;
 import org.bourbontracker.infra.bdd.entity.OrganeEntity;

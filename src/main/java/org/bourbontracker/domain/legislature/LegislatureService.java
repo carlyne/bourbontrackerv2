@@ -1,4 +1,4 @@
-package org.bourbontracker.domain.organe;
+package org.bourbontracker.domain.legislature;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -7,17 +7,17 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
-public class OrganeAvecActeursService {
+public class LegislatureService {
 
     @Inject
-    OrganeAvecActeursRepositoryInterface repository;
+    LegislatureRepository repository;
 
     @Transactional
-    public List<OrganeAvecActeurs> listerOrganesEtActeursParLegislature(String legislature) {
+    public List<Legislature> listerActeursParOrganes(String legislature) {
         if (legislature == null || legislature.isBlank()) {
             return List.of();
         }
 
-        return repository.listerOrganesAvecActeursParLegislature(legislature);
+        return repository.listerActeursParOrganes(legislature);
     }
 }

@@ -1,4 +1,4 @@
-package org.bourbontracker.domain.organe;
+package org.bourbontracker.domain.legislature;
 
 public class Organe {
     public String uid;

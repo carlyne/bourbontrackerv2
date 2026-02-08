@@ -1,4 +1,4 @@
-package org.bourbontracker.entrypoint.organe;
+package org.bourbontracker.entrypoint.legislature;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -7,9 +7,9 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.bourbontracker.domain.organe.OrganeAvecActeursService;
-import org.bourbontracker.entrypoint.organe.mapper.OrganeReponseMapper;
-import org.bourbontracker.entrypoint.organe.reponse.OrganeAvecActeursReponse;
+import org.bourbontracker.domain.legislature.LegislatureService;
+import org.bourbontracker.entrypoint.legislature.mapper.LegislatureReponseMapper;
+import org.bourbontracker.entrypoint.legislature.reponse.LegislatureReponse;
 
 import java.util.List;
 import java.util.Map;
@@ -19,17 +19,17 @@ import java.util.Map;
 //TODO: Gestion validateurs sur les requêtes d'entrée
 @Path("/api/legislatures")
 @Produces(MediaType.APPLICATION_JSON)
-public class OrganeAvecActeursController {
+public class LegislatureController {
 
     @Inject
-    OrganeAvecActeursService service;
+    LegislatureService service;
 
     @Inject
-    OrganeReponseMapper mapper;
+    LegislatureReponseMapper mapper;
 
     @GET
-    @Path("/{legislature}/organes-acteurs")
-    public Response getOrganesAvecActeurs(@PathParam("legislature") String legislature) {
+    @Path("/{legislature}/acteurs")
+    public Response listerActeursParOrgane(@PathParam("legislature") String legislature) {
 
         if (legislature == null || legislature.isBlank()) {
             return Response.status(Response.Status.BAD_REQUEST)
@@ -37,8 +37,8 @@ public class OrganeAvecActeursController {
                     .build();
         }
 
-        var domainResult = service.listerOrganesEtActeursParLegislature(legislature);
-        List<OrganeAvecActeursReponse> response = mapper.constuireListeOrganesAvecActeursReponses(domainResult);
+        var domainResult = service.listerActeursParOrganes(legislature);
+        List<LegislatureReponse> response = mapper.constuireListeLegislaturesReponses(domainResult);
 
         return Response.ok(response).build();
     }

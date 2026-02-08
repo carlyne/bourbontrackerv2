@@ -1,11 +1,11 @@
-package org.bourbontracker.entrypoint.organe.reponse;
+package org.bourbontracker.entrypoint.legislature.reponse;
 
 import org.bourbontracker.entrypoint.acteur.reponse.ActeurReponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrganeAvecActeursReponse {
+public class LegislatureReponse {
     public OrganeReponse organe;
     public List<ActeurReponse> acteurs = new ArrayList<>();
 }

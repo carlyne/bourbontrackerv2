@@ -10,7 +10,7 @@ L'application sert à :
 2. **Structurer** ces données dans PostgreSQL avec des relations explicites entre acteurs, organes et mandats.
 3. **Exposer** une API de consultation pour :
     - récupérer un acteur et ses mandats (`GET /api/acteurs/{id}`),
-    - lister les organes et leurs acteurs par législature (`GET /api/legislatures/{legislature}/organes-acteurs`).
+    - lister les organes et leurs acteurs par législature (`GET /api/legislatures/{legislature}/acteurs`).
 
 Le modèle applicatif couvre notamment les entités métier **Acteur**, **Organe**, **Mandat** et la consolidation **OrganeAvecActeurs**.
 
@@ -64,12 +64,12 @@ API disponible sur `http://localhost:8080`.
 
 ### Consultation
 - `GET /api/acteurs/{id}`
-- `GET /api/legislatures/{legislature}/organes-acteurs`
+- `GET /api/legislatures/{legislature}/acteurs`
 
 Exemple sur la législature 17 :
 
 ```bash
-curl http://localhost:8080/api/legislatures/17/organes-acteurs | jq
+curl http://localhost:8080/api/legislatures/17/acteurs | jq
 ```
 
 ## Scripts d'import (dossier `script/`)

@@ -1,6 +1,6 @@
 package org.bourbontracker.domain.acteur;
 
-import org.bourbontracker.domain.organe.Organe;
+import org.bourbontracker.domain.legislature.Organe;
 
 import java.time.LocalDate;
 
