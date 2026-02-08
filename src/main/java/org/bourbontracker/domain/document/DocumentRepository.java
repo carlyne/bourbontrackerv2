@@ -1,7 +1,7 @@
 package org.bourbontracker.domain.document;
 
-import java.util.List;
+import org.bourbontracker.domain.pagination.PageResult;
 
 public interface DocumentRepository {
-    List<Document> listerDocuments(int pageIndex, int pageSize);
+    PageResult<Document> listerDocuments(int pageIndex, int pageSize);
 }

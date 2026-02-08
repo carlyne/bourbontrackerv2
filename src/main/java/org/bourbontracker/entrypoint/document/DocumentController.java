@@ -7,9 +7,13 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.bourbontracker.domain.document.Document;
 import org.bourbontracker.domain.document.DocumentService;
+import org.bourbontracker.domain.pagination.PageResult;
 import org.bourbontracker.entrypoint.document.mapper.DocumentReponseMapper;
+import org.bourbontracker.entrypoint.document.reponse.DocumentPageReponse;
 import org.bourbontracker.entrypoint.document.reponse.DocumentReponse;
+import org.bourbontracker.entrypoint.document.reponse.PageMetaReponse;
 
 import java.util.List;
 
@@ -31,9 +35,24 @@ public class DocumentController {
         int pageIndex = page == null ? 0 : Math.max(page, 0);
         int pageSize = size == null ? 50 : Math.min(Math.max(size, 1), 200);
 
-        List<DocumentReponse> response = service.listerDocuments(pageIndex, pageSize).stream()
+        PageResult<Document> pageResult = service.listerDocuments(pageIndex, pageSize);
+
+        List<DocumentReponse> data = pageResult.items.stream()
                 .map(mapper::construireDocumentReponse)
                 .toList();
+
+        DocumentPageReponse response = new DocumentPageReponse();
+        response.data = data;
+
+        PageMetaReponse meta = new PageMetaReponse();
+        meta.page = pageResult.page;
+        meta.size = pageResult.size;
+        meta.totalElements = pageResult.totalElements;
+        meta.totalPages = pageResult.totalPages;
+        meta.first = pageResult.first;
+        meta.last = pageResult.last;
+        response.page = meta;
+
         return Response.ok(response).build();
     }
 }

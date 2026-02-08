@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
-import java.util.List;
+import org.bourbontracker.domain.pagination.PageResult;
 
 @ApplicationScoped
 public class DocumentService {
@@ -13,7 +13,7 @@ public class DocumentService {
     DocumentRepository repository;
 
     @Transactional
-    public List<Document> listerDocuments(int pageIndex, int pageSize) {
+    public PageResult<Document> listerDocuments(int pageIndex, int pageSize) {
         return repository.listerDocuments(pageIndex, pageSize);
     }
 }
