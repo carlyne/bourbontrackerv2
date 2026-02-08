@@ -12,32 +12,35 @@ import org.bourbontracker.entrypoint.reponse.ActeurReponse;
 import java.util.List;
 import java.util.Map;
 
+//TODO: Gestion Swagger pour chaque endpoint
+//TODO: Gestion des exceptions
+//TODO: Gestion validateurs sur les requêtes d'entrée
 @Path("/api/acteurs")
 @Produces(MediaType.APPLICATION_JSON)
 public class ActeurController {
 
     @Inject
-    ActeurService acteurService;
+    ActeurService service;
 
     @Inject
-    ActeurReponseMapper responseMapper;
+    ActeurReponseMapper mapper;
 
     @GET
-    public Response getActeurs(
+    public Response listerActeurs(
             @QueryParam("nom") String nom,
             @QueryParam("prenom") String prenom
     ) {
-        List<Acteur> acteurs = acteurService.listerActeurs(nom, prenom);
-        List<ActeurReponse> response = acteurs.stream()
-                .map(responseMapper::toReponse)
+        List<Acteur> listeActeurs = service.listerActeurs(nom, prenom);
+        List<ActeurReponse> listeActeursReponses = listeActeurs.stream()
+                .map(mapper::construireActeurReponse)
                 .toList();
 
-        return Response.ok(response).build();
+        return Response.ok(listeActeursReponses).build();
     }
 
     @GET
     @Path("/{id}")
-    public Response getActeur(@PathParam("id") String id) {
+    public Response trouverActeur(@PathParam("id") String id) {
         if (id == null || id.isBlank()) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(Map.of("error", "id est obligatoire"))
@@ -45,8 +48,8 @@ public class ActeurController {
         }
 
         try {
-            Acteur acteur = acteurService.chargerActeurAvecMandats(id);
-            return Response.ok(responseMapper.toReponse(acteur)).build();
+            Acteur acteur = service.chargerActeurAvecMandats(id);
+            return Response.ok(mapper.construireActeurReponse(acteur)).build();
         } catch (NotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(Map.of("error", "Acteur introuvable", "uid", id))
