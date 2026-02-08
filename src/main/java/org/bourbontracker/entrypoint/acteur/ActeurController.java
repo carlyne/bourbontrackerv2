@@ -5,6 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
@@ -43,7 +44,7 @@ public class ActeurController {
             description = "Liste des acteurs correspondant aux filtres.",
             content = @Content(
                     mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(type = "array", implementation = ActeurReponse.class)
+                    schema = @Schema(type = SchemaType.ARRAY, implementation = ActeurReponse.class)
             )
     )
     public Response listerActeurs(
