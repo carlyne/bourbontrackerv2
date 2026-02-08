@@ -17,7 +17,7 @@ import java.util.Map;
 public class ActeurController {
 
     @Inject
-    ActeurService.Bean acteurService;
+    ActeurService acteurService;
 
     @Inject
     ActeurReponseMapper responseMapper;
