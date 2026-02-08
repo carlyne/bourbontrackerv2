@@ -45,8 +45,7 @@ nb-configuration.xml
 .certs/
 
 # Project
-src/test/java/resources/document
-script/mandat
-src/test/java/resources/acteur
-src/test/java/resources/organe
-script/dossierParlementaire
+src/test/resources/document
+src/test/resources/acteur
+src/test/resources/organe
+src/test/resources/dossierParlementaire
