@@ -50,12 +50,12 @@ public class ActeurController {
     public Response listerActeurs(
             @Parameter(
                     description = "Filtre sur le nom de l'acteur (partiel ou exact selon l'implémentation).",
-                    example = "Dupont"
+                    example = "Panot"
             )
             @QueryParam("nom") String nom,
             @Parameter(
                     description = "Filtre sur le prénom de l'acteur (partiel ou exact selon l'implémentation).",
-                    example = "Camille"
+                    example = "Mathilde"
             )
             @QueryParam("prenom") String prenom
     ) {
@@ -103,7 +103,7 @@ public class ActeurController {
             @Parameter(
                     description = "Identifiant unique (uid) de l'acteur.",
                     required = true,
-                    example = "act_12345"
+                    example = "PA720892"
             )
             @PathParam("id") String id
     ) {
