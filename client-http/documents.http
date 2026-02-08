@@ -1,2 +1,2 @@
-GET http://localhost:8080/api/documents
+GET {{baseUrl}}/api/documents
 Accept: application/json
