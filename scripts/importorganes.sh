@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ENDPOINT="documents"
-DIR="document"
+ENDPOINT="organes"
+DIR="../src/test/resources/organe"
 
 ./importdirectory.sh "$ENDPOINT" "$DIR"

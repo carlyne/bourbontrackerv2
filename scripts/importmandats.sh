@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ENDPOINT="acteurs"
-DIR="acteur"
+ENDPOINT="mandats"
+DIR="../src/test/resources/mandat"
 
 ./importdirectory.sh "$ENDPOINT" "$DIR"
