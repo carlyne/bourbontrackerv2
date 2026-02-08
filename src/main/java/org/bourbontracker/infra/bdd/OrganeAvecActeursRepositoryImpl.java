@@ -2,13 +2,13 @@ package org.bourbontracker.infra.bdd;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.bourbontracker.domain.Acteur;
-import org.bourbontracker.domain.OrganeAvecActeurs;
-import org.bourbontracker.domain.OrganeAvecActeursRepositoryInterface;
+import org.bourbontracker.domain.acteur.Acteur;
+import org.bourbontracker.domain.organe.OrganeAvecActeurs;
+import org.bourbontracker.domain.organe.OrganeAvecActeursRepositoryInterface;
 import org.bourbontracker.infra.bdd.entity.ActeurEntity;
 import org.bourbontracker.infra.bdd.entity.MandatEntity;
 import org.bourbontracker.infra.bdd.entity.OrganeEntity;
-import org.bourbontracker.infra.bdd.mapper.ActeurMapper;
+import org.bourbontracker.infra.bdd.mapper.ActeurEntityMapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ import java.util.Map;
 public class OrganeAvecActeursRepositoryImpl implements OrganeAvecActeursRepositoryInterface {
 
     @Inject
-    ActeurMapper mapper;
+    ActeurEntityMapper mapper;
 
     @Override
     public List<OrganeAvecActeurs> listerOrganesAvecActeursParLegislature(String legislature) {
