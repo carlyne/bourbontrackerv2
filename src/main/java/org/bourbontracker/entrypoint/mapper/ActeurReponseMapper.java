@@ -15,18 +15,18 @@ import java.util.List;
 )
 public interface ActeurReponseMapper {
 
-    OrganeAvecActeursReponse toReponse(OrganeAvecActeurs src);
+    OrganeAvecActeursReponse construireActeurReponse(OrganeAvecActeurs src);
 
     List<OrganeAvecActeursReponse> toReponseList(List<OrganeAvecActeurs> src);
 
-    OrganeReponse toReponse(Organe src);
+    OrganeReponse construireActeurReponse(Organe src);
 
-    ActeurReponse toReponse(Acteur src);
+    ActeurReponse construireActeurReponse(Acteur src);
 
-    EtatCivilReponse toReponse(EtatCivil src);
+    EtatCivilReponse construireActeurReponse(EtatCivil src);
 
     @Mapping(target = "organeUid", source = "organe.uid")
-    MandatReponse toReponse(Mandat src);
+    MandatReponse construireActeurReponse(Mandat src);
 
     List<MandatReponse> toMandatReponseList(List<Mandat> src);
 }
