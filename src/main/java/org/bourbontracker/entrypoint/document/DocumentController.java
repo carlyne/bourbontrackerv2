@@ -3,6 +3,7 @@ package org.bourbontracker.entrypoint.document;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -23,8 +24,14 @@ public class DocumentController {
     DocumentReponseMapper mapper;
 
     @GET
-    public Response listerDocuments() {
-        List<DocumentReponse> response = service.listerDocuments().stream()
+    public Response listerDocuments(
+            @QueryParam("page") Integer page,
+            @QueryParam("size") Integer size
+    ) {
+        int pageIndex = page == null ? 0 : Math.max(page, 0);
+        int pageSize = size == null ? 50 : Math.min(Math.max(size, 1), 200);
+
+        List<DocumentReponse> response = service.listerDocuments(pageIndex, pageSize).stream()
                 .map(mapper::construireDocumentReponse)
                 .toList();
         return Response.ok(response).build();

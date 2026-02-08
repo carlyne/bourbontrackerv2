@@ -13,7 +13,7 @@ public class DocumentService {
     DocumentRepository repository;
 
     @Transactional
-    public List<Document> listerDocuments() {
-        return repository.listerDocuments();
+    public List<Document> listerDocuments(int pageIndex, int pageSize) {
+        return repository.listerDocuments(pageIndex, pageSize);
     }
 }
