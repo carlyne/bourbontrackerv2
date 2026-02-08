@@ -5,3 +5,12 @@ Accept: application/json
 GET http://localhost:8080/api/acteurs?nom=Panot
 Accept: application/json
 
+    ###
+GET http://localhost:8080/api/acteurs?prenom=Mathilde
+Accept: application/json
+
+###
+#TODO permettre la recherche sur nom et prénom
+#GET http://localhost:8080/api/acteurs?prenom=Mathilde&nom=Panot
+#Accept: application/json
+
