@@ -1,0 +1,32 @@
+package org.bourbontracker.entrypoint.document;
+
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.bourbontracker.domain.document.DocumentService;
+import org.bourbontracker.entrypoint.document.mapper.DocumentReponseMapper;
+import org.bourbontracker.entrypoint.document.reponse.DocumentReponse;
+
+import java.util.List;
+
+@Path("/api/documents")
+@Produces(MediaType.APPLICATION_JSON)
+public class DocumentController {
+
+    @Inject
+    DocumentService service;
+
+    @Inject
+    DocumentReponseMapper mapper;
+
+    @GET
+    public Response listerDocuments() {
+        List<DocumentReponse> response = service.listerDocuments().stream()
+                .map(mapper::construireDocumentReponse)
+                .toList();
+        return Response.ok(response).build();
+    }
+}
