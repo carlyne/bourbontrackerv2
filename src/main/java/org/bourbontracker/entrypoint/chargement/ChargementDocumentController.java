@@ -68,6 +68,24 @@ public class ChargementDocumentController {
             }
         }
 
+        if (requete.document.auteurs != null && requete.document.auteurs.auteur != null) {
+            for (var auteur : requete.document.auteurs.auteur) {
+                if (auteur == null || auteur.acteur == null) {
+                    continue;
+                }
+                String acteurRef = auteur.acteur.acteurRef;
+                if (acteurRef == null || acteurRef.isBlank()) {
+                    continue;
+                }
+                if (ActeurEntity.findById(acteurRef) == null) {
+                    return Response.status(409).entity(Map.of(
+                            "error", "acteurRef introuvable",
+                            "acteurRef", acteurRef
+                    )).build();
+                }
+            }
+        }
+
         mapper.mettreAJourDepuisRequete(requete, documentEntity);
 
         try {

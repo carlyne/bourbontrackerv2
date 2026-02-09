@@ -57,20 +57,6 @@ public abstract class ChargementDocumentMapper {
     @Mapping(target = "noticeAdoptionConforme", source = "document.notice.adoptionConforme", qualifiedByName = "toBooleanOrNull")
     public abstract void mettreAJourDepuisRequete(ChargementDocumentRequete src, @MappingTarget DocumentEntity target);
 
-    @BeforeMapping
-    protected void clearCosignataires(@MappingTarget DocumentEntity target) {
-        if (target.coSignataires != null) {
-            target.coSignataires.clear();
-        }
-    }
-
-    @BeforeMapping
-    protected void clearAuteurs(@MappingTarget DocumentEntity target) {
-        if (target.auteurs != null) {
-            target.auteurs.clear();
-        }
-    }
-
     @AfterMapping
     protected void attachRefs(ChargementDocumentRequete src, @MappingTarget DocumentEntity target) {
         if (src == null || src.document == null) {
@@ -85,12 +71,18 @@ public abstract class ChargementDocumentMapper {
         Set<String> seenCosignataires = new HashSet<>();
         Set<String> seenAuteurs = new HashSet<>();
 
+        if (src.document.coSignataires != null) {
+            target.coSignataires.clear();
+        }
         if (src.document.coSignataires != null && src.document.coSignataires.coSignataire != null) {
             for (var cosignataire : src.document.coSignataires.coSignataire) {
                 ajouterCosignataireSiPresent(cosignataire == null ? null : cosignataire.acteur, target, seenCosignataires);
             }
         }
 
+        if (src.document.auteurs != null) {
+            target.auteurs.clear();
+        }
         if (src.document.auteurs != null && src.document.auteurs.auteur != null) {
             for (var auteur : src.document.auteurs.auteur) {
                 ajouterAuteurSiPresent(auteur == null ? null : auteur.acteur, target, seenAuteurs);
