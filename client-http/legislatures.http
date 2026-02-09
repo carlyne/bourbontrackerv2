@@ -1,2 +1,2 @@
-GET http://localhost:8080/api/legislatures/17/acteurs
+GET {{baseUrl}}/api/legislatures/17/acteurs
 Accept: application/json

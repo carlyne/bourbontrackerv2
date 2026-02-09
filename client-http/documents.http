@@ -1,0 +1,2 @@
+GET {{baseUrl}}/api/documents
+Accept: application/json

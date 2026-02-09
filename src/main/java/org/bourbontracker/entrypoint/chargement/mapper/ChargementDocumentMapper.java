@@ -27,6 +27,7 @@ public abstract class ChargementDocumentMapper {
     @Mapping(target = "uid", ignore = true)
     @Mapping(target = "organeReferent", ignore = true)
     @Mapping(target = "coSignataires", ignore = true)
+    @Mapping(target = "auteurs", ignore = true)
 
     @Mapping(target = "xmlns", source = "document.xmlns")
     @Mapping(target = "xmlnsXsi", source = "document.xmlnsXsi")
@@ -56,13 +57,6 @@ public abstract class ChargementDocumentMapper {
     @Mapping(target = "noticeAdoptionConforme", source = "document.notice.adoptionConforme", qualifiedByName = "toBooleanOrNull")
     public abstract void mettreAJourDepuisRequete(ChargementDocumentRequete src, @MappingTarget DocumentEntity target);
 
-    @BeforeMapping
-    protected void clearCosignataires(@MappingTarget DocumentEntity target) {
-        if (target.coSignataires != null) {
-            target.coSignataires.clear();
-        }
-    }
-
     @AfterMapping
     protected void attachRefs(ChargementDocumentRequete src, @MappingTarget DocumentEntity target) {
         if (src == null || src.document == null) {
@@ -74,22 +68,58 @@ public abstract class ChargementDocumentMapper {
             target.organeReferent = em.getReference(OrganeEntity.class, organeRef);
         }
 
-        if (src.document.coSignataires == null || src.document.coSignataires.coSignataire == null) {
-            return;
+        Set<String> seenCosignataires = new HashSet<>();
+        Set<String> seenAuteurs = new HashSet<>();
+
+        if (src.document.coSignataires != null) {
+            target.coSignataires.clear();
+        }
+        if (src.document.coSignataires != null && src.document.coSignataires.coSignataire != null) {
+            for (var cosignataire : src.document.coSignataires.coSignataire) {
+                ajouterCosignataireSiPresent(cosignataire == null ? null : cosignataire.acteur, target, seenCosignataires);
+            }
         }
 
-        Set<String> seen = new HashSet<>();
-        for (var cosignataire : src.document.coSignataires.coSignataire) {
-            if (cosignataire == null || cosignataire.acteur == null) {
-                continue;
-            }
-            String acteurRef = cosignataire.acteur.acteurRef;
-            if (acteurRef == null || acteurRef.isBlank() || !seen.add(acteurRef)) {
-                continue;
-            }
-            ActeurEntity acteurEntity = em.getReference(ActeurEntity.class, acteurRef);
-            target.addCoSignataire(acteurEntity);
+        if (src.document.auteurs != null) {
+            target.auteurs.clear();
         }
+        if (src.document.auteurs != null && src.document.auteurs.auteur != null) {
+            for (var auteur : src.document.auteurs.auteur) {
+                ajouterAuteurSiPresent(auteur == null ? null : auteur.acteur, target, seenAuteurs);
+            }
+        }
+    }
+
+    private void ajouterCosignataireSiPresent(
+            ChargementDocumentRequete.Acteur acteur,
+            @MappingTarget DocumentEntity target,
+            Set<String> seen
+    ) {
+        if (acteur == null) {
+            return;
+        }
+        String acteurRef = acteur.acteurRef;
+        if (acteurRef == null || acteurRef.isBlank() || !seen.add(acteurRef)) {
+            return;
+        }
+        ActeurEntity acteurEntity = em.getReference(ActeurEntity.class, acteurRef);
+        target.addCoSignataire(acteurEntity);
+    }
+
+    private void ajouterAuteurSiPresent(
+            ChargementDocumentRequete.Acteur acteur,
+            @MappingTarget DocumentEntity target,
+            Set<String> seen
+    ) {
+        if (acteur == null) {
+            return;
+        }
+        String acteurRef = acteur.acteurRef;
+        if (acteurRef == null || acteurRef.isBlank() || !seen.add(acteurRef)) {
+            return;
+        }
+        ActeurEntity acteurEntity = em.getReference(ActeurEntity.class, acteurRef);
+        target.addAuteur(acteurEntity);
     }
 
     @Named("toBooleanOrNull")

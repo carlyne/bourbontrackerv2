@@ -111,8 +111,29 @@ public class DocumentEntity extends PanacheEntityBase {
     )
     public List<ActeurEntity> coSignataires = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "document_auteur",
+            joinColumns = @JoinColumn(
+                    name = "document_uid",
+                    referencedColumnName = "uid",
+                    foreignKey = @ForeignKey(name = "fk_document_auteur_document")
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "acteur_ref",
+                    referencedColumnName = "uid_text",
+                    foreignKey = @ForeignKey(name = "fk_document_auteur_acteur")
+            )
+    )
+    public List<ActeurEntity> auteurs = new ArrayList<>();
+
     public void addCoSignataire(ActeurEntity acteurEntity) {
         this.coSignataires.add(acteurEntity);
         acteurEntity.documentCosignataires.add(this);
+    }
+
+    public void addAuteur(ActeurEntity acteurEntity) {
+        this.auteurs.add(acteurEntity);
+        acteurEntity.documentAuteurs.add(this);
     }
 }

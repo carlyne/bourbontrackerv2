@@ -1,7 +1,8 @@
 package org.bourbontracker.infra.bdd.mapper;
 
+import jakarta.inject.Inject;
+import org.bourbontracker.domain.acteur.Acteur;
 import org.bourbontracker.domain.document.Document;
-import org.bourbontracker.domain.document.DocumentCosignataire;
 import org.bourbontracker.infra.bdd.entity.ActeurEntity;
 import org.bourbontracker.infra.bdd.entity.DocumentEntity;
 import org.mapstruct.Mapper;
@@ -15,15 +16,25 @@ import java.util.List;
         componentModel = MappingConstants.ComponentModel.JAKARTA_CDI,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-public interface DocumentEntityMapper {
+public abstract class DocumentEntityMapper {
 
-    @Mapping(target = "uid", source = "uidText")
-    @Mapping(target = "nom", source = "etatCivilIdentNom")
-    @Mapping(target = "prenom", source = "etatCivilIdentPrenom")
-    DocumentCosignataire acteurEntityToDocumentCosignataire(ActeurEntity src);
+    @Inject
+    ActeurEntityMapper acteurEntityMapper;
 
-    List<DocumentCosignataire> construireListeCosignataires(List<ActeurEntity> src);
+    protected Acteur acteurEntityToActeur(ActeurEntity src) {
+        return acteurEntityMapper.acteurEntityToActeur(src, List.of());
+    }
 
-    @Mapping(target = "coSignataires", source = "coSignataires")
-    Document documentEntityToDocument(DocumentEntity src);
+    protected List<Acteur> construireListeCosignataires(List<ActeurEntity> src) {
+        if (src == null || src.isEmpty()) {
+            return List.of();
+        }
+        return src.stream()
+                .map(this::acteurEntityToActeur)
+                .toList();
+    }
+
+    @Mapping(target = "coSignataires", expression = "java(construireListeCosignataires(src.coSignataires))")
+    @Mapping(target = "auteurs", expression = "java(construireListeCosignataires(src.auteurs))")
+    public abstract Document documentEntityToDocument(DocumentEntity src);
 }

@@ -1,5 +1,7 @@
 package org.bourbontracker.entrypoint.document.reponse;
 
+import org.bourbontracker.entrypoint.acteur.reponse.ActeurReponse;
+
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,5 +14,6 @@ public class DocumentReponse {
     public OffsetDateTime datePublication;
     public OffsetDateTime datePublicationWeb;
     public String titrePrincipal;
-    public List<DocumentCosignataireReponse> coSignataires = new ArrayList<>();
+    public List<ActeurReponse> coSignataires = new ArrayList<>();
+    public List<ActeurReponse> auteurs = new ArrayList<>();
 }

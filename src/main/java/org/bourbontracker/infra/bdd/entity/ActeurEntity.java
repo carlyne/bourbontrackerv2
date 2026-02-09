@@ -72,6 +72,9 @@ public class ActeurEntity extends PanacheEntityBase {
     @ManyToMany(mappedBy = "coSignataires")
     public List<DocumentEntity> documentCosignataires = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "auteurs")
+    public List<DocumentEntity> documentAuteurs = new ArrayList<>();
+
     public void addAdresse(AdresseEntity a) {
         a.acteurEntity = this;
         this.adressesEntities.add(a);
